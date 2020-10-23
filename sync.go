@@ -1,4 +1,4 @@
-// Package main
+// Package main will drive the execution to keep files in sync between two independent locations
 package main
 
 import (
@@ -42,6 +42,8 @@ func (fn *Files) walkDir(dir string) {
 	filepath.Walk(dir, visit)
 }
 
+// This exists only for timing sake to show how much faster this is w/ channel.
+// this will be deleted in the near future.
 func nonP(path string) {
 	z := make(map[string]fileMetadata)
 	err := filepath.Walk(path,
@@ -59,7 +61,6 @@ func nonP(path string) {
 }
 
 func metadata(f os.FileInfo, path string) fileMetadata {
-
 	m := fileMetadata{
 		filePath: path,
 		size:     f.Size(),
@@ -69,7 +70,7 @@ func metadata(f os.FileInfo, path string) fileMetadata {
 }
 
 func main() {
-	//paths := [2]string{"/usr/local/google/home/jdbarry/Downloads", "/usr/local/google/home/jdbarry/Documents"}
+	// static for now, make this a string flag at some point
 	paths := [2]string{"/mnt/user/TV Shows", "/mnt/user/Movies"}
 
 	// Validate Path exists
